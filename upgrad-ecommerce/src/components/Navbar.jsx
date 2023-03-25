@@ -86,17 +86,22 @@ export default function Navbar({ user }) {
                 upGrad E-Shop
               </Typography>
             </div>
+            <div style={{ flexGrow: 1 }} />
+
             {auth && (
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
+              <>
+                <Search sx={{ flexGrow: 1.5 }}>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+              </>
             )}
+            <div style={{ flexGrow: 1 }} />
 
             {!auth && (
               <div className="flex items-center gap-3">
@@ -125,7 +130,26 @@ export default function Navbar({ user }) {
 
             {admin && (
               <div className="flex items-center gap-3">
-                <a href="/product/new" className="hidden md:block">
+                <a
+                  href="/"
+                  className="hidden md:block"
+                  style={{
+                    textDecoration: "underline",
+                    fontWeight: "bold",
+                    fontSize: "larger",
+                  }}
+                >
+                  Home
+                </a>
+                <a
+                  href="/product/new"
+                  className="hidden md:block"
+                  style={{
+                    textDecoration: "underline",
+                    fontWeight: "bold",
+                    fontSize: "larger",
+                  }}
+                >
                   Add Product
                 </a>
                 <a href="/logout" className="px-3 py-1 bg-red-500 rounded-md">
@@ -135,11 +159,27 @@ export default function Navbar({ user }) {
             )}
 
             {!admin && auth && (
-              <div className="flex items-center gap-3">
-                <a href="/logout" className="px-3 py-1 bg-red-500 rounded-md">
-                  Logout
-                </a>
-              </div>
+              <>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="/"
+                    className="hidden md:block"
+                    style={{
+                      textDecoration: "underline",
+                      fontWeight: "bold",
+                      fontSize: "larger",
+                      padding: "20px",
+                    }}
+                  >
+                    Home
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <a href="/logout" className="px-3 py-1 bg-red-500 rounded-md">
+                    Logout
+                  </a>
+                </div>
+              </>
             )}
           </div>
         </Toolbar>

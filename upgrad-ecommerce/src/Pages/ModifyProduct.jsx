@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import Navbar from "../components/Navbar";
 import getProduct from "../utils/getProduct";
 import modifyProduct from "../utils/modifyProduct";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ModifyProduct({ product_id, user }) {
   console.log("Product Id", product_id);
@@ -59,6 +61,10 @@ function ModifyProduct({ product_id, user }) {
     };
 
     if (modified === 200) {
+      toast.success(`Product ${name} modified successfully`, {
+        position: "top-right",
+        theme: "colored",
+      });
       setState({ open: true, ...NewState });
     }
   };
@@ -67,146 +73,140 @@ function ModifyProduct({ product_id, user }) {
     setState({ ...state, open: false });
   };
   return (
-    <div>
-      <Navbar user={user} />
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical, horizontal }}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Product {name} modified Successfully!
-        </Alert>
-      </Snackbar>
-      <div className="auth-body w-full h-[90%] flex items-center justify-center py-16">
-        <div className="flex flex-col items-center gap-12">
-          <div className="flex flex-col items-center gap-3">
-            <h3 className="text-2xl">Modify Product</h3>
-          </div>
+    <>
+      <div>
+        <Navbar user={user} />
 
-          <form className="flex flex-col items-start gap-3 w-[375px] lg:w-[575px]">
-            <TextField
-              id="outlined-basic"
-              label="Name *"
-              variant="outlined"
-              fullWidth
-              value={name}
-              onChange={(e) => {
-                setChange(true);
-                setName(e.target.value);
-              }}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Category *"
-              variant="outlined"
-              value={category}
-              onChange={(e) => {
-                setChange(true);
-                setCategory(e.target.value);
-              }}
-              fullWidth
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Manufacturer *"
-              variant="outlined"
-              value={manufacture}
-              onChange={(e) => {
-                setChange(true);
-                setManufacture(e.target.value);
-              }}
-              fullWidth
-            />
-            <TextField
-              id="outlined-basic"
-              label="Avialable Items *"
-              variant="outlined"
-              value={itemCount}
-              type="number"
-              onChange={(e) => {
-                setChange(true);
-                setItemCount(e.target.value);
-              }}
-              fullWidth
-            />
-            <TextField
-              id="outlined-basic"
-              label="Price *"
-              variant="outlined"
-              value={price}
-              type="number"
-              onChange={(e) => {
-                setChange(true);
-                setPrice(e.target.value);
-              }}
-              fullWidth
-            />
-            <TextField
-              id="outlined-basic"
-              label="Image Url *"
-              variant="outlined"
-              value={image}
-              onChange={(e) => {
-                setChange(true);
-                setImage(e.target.value);
-              }}
-              fullWidth
-            />
-
-            <TextField
-              id="outlined-basic"
-              label="Product Description *"
-              variant="outlined"
-              value={description}
-              onChange={(e) => {
-                setChange(true);
-                setDescription(e.target.value);
-              }}
-              multiline
-              rows={4}
-              fullWidth
-            />
-
-            <div className="w-full flex items-center flex-col">
-              <Button
-                variant="contained"
-                fullWidth
-                onClick={handleModify}
-                color={
-                  !name ||
-                  !description ||
-                  !price ||
-                  !manufacture ||
-                  !itemCount ||
-                  !image ||
-                  !category ||
-                  !change
-                    ? "inherit"
-                    : "primary"
-                }
-                disabled={
-                  !name ||
-                  !description ||
-                  !price ||
-                  !manufacture ||
-                  !itemCount ||
-                  !image ||
-                  !category ||
-                  !change
-                    ? true
-                    : false
-                }
-              >
-                Modify Product
-              </Button>
+        <div className="auth-body w-full h-[90%] flex items-center justify-center py-16">
+          <div className="flex flex-col items-center gap-12">
+            <div className="flex flex-col items-center gap-3">
+              <h3 className="text-2xl">Modify Product</h3>
             </div>
-          </form>
+
+            <form className="flex flex-col items-start gap-3 w-[375px] lg:w-[575px]">
+              <TextField
+                id="outlined-basic"
+                label="Name *"
+                variant="outlined"
+                fullWidth
+                value={name}
+                onChange={(e) => {
+                  setChange(true);
+                  setName(e.target.value);
+                }}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Category *"
+                variant="outlined"
+                value={category}
+                onChange={(e) => {
+                  setChange(true);
+                  setCategory(e.target.value);
+                }}
+                fullWidth
+              />
+
+              <TextField
+                id="outlined-basic"
+                label="Manufacturer *"
+                variant="outlined"
+                value={manufacture}
+                onChange={(e) => {
+                  setChange(true);
+                  setManufacture(e.target.value);
+                }}
+                fullWidth
+              />
+              <TextField
+                id="outlined-basic"
+                label="Avialable Items *"
+                variant="outlined"
+                value={itemCount}
+                type="number"
+                onChange={(e) => {
+                  setChange(true);
+                  setItemCount(e.target.value);
+                }}
+                fullWidth
+              />
+              <TextField
+                id="outlined-basic"
+                label="Price *"
+                variant="outlined"
+                value={price}
+                type="number"
+                onChange={(e) => {
+                  setChange(true);
+                  setPrice(e.target.value);
+                }}
+                fullWidth
+              />
+              <TextField
+                id="outlined-basic"
+                label="Image Url *"
+                variant="outlined"
+                value={image}
+                onChange={(e) => {
+                  setChange(true);
+                  setImage(e.target.value);
+                }}
+                fullWidth
+              />
+
+              <TextField
+                id="outlined-basic"
+                label="Product Description *"
+                variant="outlined"
+                value={description}
+                onChange={(e) => {
+                  setChange(true);
+                  setDescription(e.target.value);
+                }}
+                multiline
+                rows={4}
+                fullWidth
+              />
+
+              <div className="w-full flex items-center flex-col">
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={handleModify}
+                  color={
+                    !name ||
+                    !description ||
+                    !price ||
+                    !manufacture ||
+                    !itemCount ||
+                    !image ||
+                    !category ||
+                    !change
+                      ? "inherit"
+                      : "primary"
+                  }
+                  disabled={
+                    !name ||
+                    !description ||
+                    !price ||
+                    !manufacture ||
+                    !itemCount ||
+                    !image ||
+                    !category ||
+                    !change
+                      ? true
+                      : false
+                  }
+                >
+                  Modify Product
+                </Button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <ToastContainer />
+    </>
   );
 }
 

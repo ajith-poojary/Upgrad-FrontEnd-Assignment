@@ -17,7 +17,9 @@ import PopUp from "../components/PopUp";
 import useAdmin from "../hooks/useAdmin";
 import { setProducts } from "../redux/actions";
 import getProducts from "../utils/getProducts";
+import useAuth from "../hooks/useAuth";
 function Home({ user, products, filteredProducts, setProducts }) {
+  const auth = useAuth();
   const [filter, setFilter] = useState("default");
   const admin = useAdmin();
 
@@ -53,50 +55,52 @@ function Home({ user, products, filteredProducts, setProducts }) {
   return (
     <div>
       <Navbar user={user} />
-      <div className="px-3 sm:px-16 md:px-32 py-16">
-        <div className="flex items-center justify-center">
-          <Tab />
-        </div>
+      {auth && (
+        <div className="px-3 sm:px-16 md:px-32 py-16">
+          <div className="flex items-center justify-center">
+            <Tab />
+          </div>
 
-        <div className="select-header w-full my-6">
-          <div className="w-[235px]">
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Sort By:</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={filter}
-                label="Filter"
-                onChange={handleSort}
-              >
-                <MenuItem value={"default"}>Default</MenuItem>
-                <MenuItem value={"hl"}>Price: High to Low</MenuItem>
-                <MenuItem value={"lh"}>Price:Low to High</MenuItem>
-                <MenuItem value={"new"}>Newest</MenuItem>
-              </Select>
-            </FormControl>
+          <div className="select-header w-full my-6">
+            <div className="w-[235px]">
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Sort By:</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={filter}
+                  label="Filter"
+                  onChange={handleSort}
+                >
+                  <MenuItem value={"default"}>Default</MenuItem>
+                  <MenuItem value={"hl"}>Price: High to Low</MenuItem>
+                  <MenuItem value={"lh"}>Price:Low to High</MenuItem>
+                  <MenuItem value={"new"}>Newest</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </div>
+          <div className="products w-full my-12">
+            <Grid container spacing={2}>
+              {filteredProducts.length > 0
+                ? filteredProducts.map((product, index) => {
+                    return (
+                      <Grid item xs={12} md={6} lg={4}>
+                        <ProductCard product={product} />
+                      </Grid>
+                    );
+                  })
+                : products.map((product, index) => {
+                    return (
+                      <Grid item xs={12} md={6} lg={4}>
+                        <ProductCard product={product} />
+                      </Grid>
+                    );
+                  })}
+            </Grid>
           </div>
         </div>
-        <div className="products w-full my-12">
-          <Grid container spacing={2}>
-            {filteredProducts.length > 0
-              ? filteredProducts.map((product, index) => {
-                  return (
-                    <Grid item xs={12} md={6} lg={4}>
-                      <ProductCard product={product} />
-                    </Grid>
-                  );
-                })
-              : products.map((product, index) => {
-                  return (
-                    <Grid item xs={12} md={6} lg={4}>
-                      <ProductCard product={product} />
-                    </Grid>
-                  );
-                })}
-          </Grid>
-        </div>
-      </div>
+      )}
       {admin && (
         <div
           style={{
