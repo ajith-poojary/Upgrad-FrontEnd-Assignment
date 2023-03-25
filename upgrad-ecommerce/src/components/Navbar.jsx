@@ -10,6 +10,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { ShoppingCart } from "@material-ui/icons";
 import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
+import { useLocation } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,6 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar({ user }) {
   const admin = useAdmin();
   const auth = useAuth();
+  const location = useLocation();
 
   console.log("Admin Status", admin);
   return (
@@ -84,21 +86,40 @@ export default function Navbar({ user }) {
                 upGrad E-Shop
               </Typography>
             </div>
-
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            {auth && (
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+            )}
 
             {!auth && (
               <div className="flex items-center gap-3">
-                <a href="/auth/login">Login</a>
-                <a href="/auth/signup">Sign Up</a>
+                <a
+                  href="/auth/login"
+                  style={{
+                    textDecoration: "underline",
+                    fontWeight: "bold",
+                    fontSize: "larger",
+                  }}
+                >
+                  Login
+                </a>
+                <a
+                  href="/auth/signup"
+                  style={{
+                    textDecoration: "underline",
+                    fontWeight: "bold",
+                    fontSize: "larger",
+                  }}
+                >
+                  Sign Up
+                </a>
               </div>
             )}
 

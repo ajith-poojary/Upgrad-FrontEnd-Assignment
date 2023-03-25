@@ -33,8 +33,6 @@ function Home({ user, products, filteredProducts, setProducts }) {
     setProducts(productsList.reverse());
   }
 
-  //handle sorting
-
   const handleSort = (e) => {
     setFilter(e.target.value);
     const tempProducts = [...products];
