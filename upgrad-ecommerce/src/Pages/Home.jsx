@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Snackbar,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -13,15 +14,18 @@ import Navbar from "../components/Navbar";
 import ProductCard from "../components/ProductCard";
 import Tab from "../components/Tab";
 import AddIcon from "@mui/icons-material/Add";
-import PopUp from "../components/PopUp";
+
 import useAdmin from "../hooks/useAdmin";
 import { setProducts } from "../redux/actions";
 import getProducts from "../utils/getProducts";
 import useAuth from "../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 function Home({ user, products, filteredProducts, setProducts }) {
   const auth = useAuth();
   const [filter, setFilter] = useState("default");
   const admin = useAdmin();
+  const history = useHistory();
+  const [adminError, setAdminError] = useState(false);
 
   async function defaultProducts() {
     const productsList = await getProducts();
@@ -86,14 +90,20 @@ function Home({ user, products, filteredProducts, setProducts }) {
                 ? filteredProducts.map((product, index) => {
                     return (
                       <Grid item xs={12} md={6} lg={4}>
-                        <ProductCard product={product} />
+                        <ProductCard
+                          product={product}
+                          setAdminError={setAdminError}
+                        />
                       </Grid>
                     );
                   })
                 : products.map((product, index) => {
                     return (
                       <Grid item xs={12} md={6} lg={4}>
-                        <ProductCard product={product} />
+                        <ProductCard
+                          product={product}
+                          setAdminError={setAdminError}
+                        />
                       </Grid>
                     );
                   })}
@@ -108,12 +118,26 @@ function Home({ user, products, filteredProducts, setProducts }) {
           }}
           className="left-[50%] translate-x-[-50%] bottom-10 block md:hidden"
         >
-          <Fab variant="extended" color="primary">
+          <Fab
+            variant="extended"
+            color="primary"
+            onClick={() => {
+              history.push("/product/new");
+            }}
+          >
             <AddIcon sx={{ mr: 1 }} />
             Add Product
           </Fab>
         </div>
       )}
+      <Snackbar
+        open={adminError}
+        autoHideDuration={6000}
+        onClose={() => {
+          setAdminError(true);
+        }}
+        message="Admin can't buy an product"
+      />
     </div>
   );
 }

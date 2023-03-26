@@ -19,6 +19,7 @@ import Logout from "./Pages/Logout";
 import ModifyProduct from "./Pages/ModifyProduct";
 import Product from "./Pages/Product";
 import PlaceOrder from "./Pages/PlaceOrder";
+import axios from "axios";
 import getAddress from "./utils/getAddresses";
 
 function App({ setUser, setCategories, setProducts, setAddresses }) {
@@ -64,6 +65,7 @@ function App({ setUser, setCategories, setProducts, setAddresses }) {
     fetchProducts();
     fetAddress();
   }, []);
+
   return (
     <Router>
       <div>

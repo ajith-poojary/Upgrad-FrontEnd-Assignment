@@ -11,6 +11,8 @@ import { ShoppingCart } from "@material-ui/icons";
 import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
 import { useLocation } from "react-router-dom";
+import { connect, useSelector } from "react-redux";
+import { setFilteredProducts } from "../redux/actions";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,12 +56,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar({ user }) {
+function Navbar({ user, setFilteredProducts }) {
   const admin = useAdmin();
   const auth = useAuth();
   const location = useLocation();
 
-  console.log("Admin Status", admin);
+  const products = useSelector((state) => state.appReducer.products);
+  console.log("Status of admin", admin);
+
+  const handleSearch = (e) => {
+    const tempProduct = [...products];
+
+    const filteredProducts = tempProduct.filter((p) =>
+      p.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
+    console.log("Filtered Products", filteredProducts);
+    setFilteredProducts(filteredProducts);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -97,6 +112,7 @@ export default function Navbar({ user }) {
                   <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
+                    onChange={handleSearch}
                   />
                 </Search>
               </>
@@ -187,3 +203,9 @@ export default function Navbar({ user }) {
     </Box>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  setFilteredProducts: (filtered_products) =>
+    dispatch(setFilteredProducts(filtered_products)),
+});
+
+export default connect(null, mapDispatchToProps)(Navbar);
