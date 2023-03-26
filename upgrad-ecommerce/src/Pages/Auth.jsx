@@ -88,7 +88,7 @@ function Auth({ type }) {
   return (
     <div className="h-screen">
       <Navbar />
-      <div className="auth-body w-full h-[90%] overflow-hidden flex items-center justify-center">
+      <div className="auth-body w-full h-[90%]  flex items-center justify-center">
         <div className="flex flex-col items-center gap-12">
           <div className="flex flex-col items-center gap-3">
             <div className="w-12 h-12 bg-red-500 flex items-center justify-center rounded-full text-white">
@@ -100,7 +100,10 @@ function Auth({ type }) {
           </div>
 
           {type === "login" ? (
-            <form className="flex flex-col items-start gap-3 w-[375px]">
+            <form
+              className="flex flex-col items-start gap-3 w-[375px]"
+              style={{ marginTop: "35px" }}
+            >
               <TextField
                 id="outlined-basic"
                 label="Email Address *"

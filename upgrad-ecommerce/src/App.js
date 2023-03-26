@@ -21,20 +21,59 @@ import Product from "./Pages/Product";
 import PlaceOrder from "./Pages/PlaceOrder";
 import axios from "axios";
 import getAddress from "./utils/getAddresses";
+import PageNotFound from "./Common/PageNotFound/PageNotFound";
 
 function App({ setUser, setCategories, setProducts, setAddresses }) {
   useEffect(() => {
     async function fetchUsers() {
+      // getUserDetails();
       const usersList = await GetUsers();
-      console.log(usersList);
+      // console.log("userList", usersList);
       const decodedToken = DecodeToken();
-      console.log(decodedToken);
+      // console.log("where is this code");
 
       const users = usersList.filter((user) => user.email === decodedToken.sub);
+      console.log("after login decoded", users);
+      console.log("decoded token", decodedToken.sub);
+      console.log("id found?", users[0].id);
 
       console.log(users[0]);
       setUser(users[0]);
     }
+
+    // const getUserDetails = async () => {
+    //   const token = sessionStorage.getItem("jwt_token");
+    //   try {
+    //     const rawResponse = await fetch("http://localhost:8080/api/users", {
+    //       method: "GET",
+    //       headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //         authorization: `Bearer ${token}`,
+    //       },
+    //     });
+
+    //     if (rawResponse.ok) {
+    //       // postProducts();
+    //     } else {
+    //     }
+    //     const usersList = await rawResponse.json();
+    //     const decodedToken = DecodeToken();
+    //     const users = usersList.filter(
+    //       (user) => user.email === decodedToken.sub
+    //     );
+    //     console.log("after login decoded---> personal", users);
+    //   } catch (e) {}
+    // };
+
+    // async function storeLoggedInUserData() {
+    //   const usersList = await GetUsers();
+    //   const decodedToken = DecodeToken();
+    //   const users = usersList.filter((user) => user.email === decodedToken.sub);
+    //   console.log("id found?", users[0].id);
+    //   console.log("my custome code");
+    //   console.log(users);
+    // }
 
     async function fetchCategories() {
       const categories = await getCategories();
@@ -111,6 +150,9 @@ function App({ setUser, setCategories, setProducts, setAddresses }) {
           />
         </Switch>
       </div>
+      <Route path="*">
+        <PageNotFound />
+      </Route>
     </Router>
   );
 }

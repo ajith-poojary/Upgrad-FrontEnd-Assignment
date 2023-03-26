@@ -63,13 +63,13 @@ function ModifyProduct({ user, setProducts, setCategories }) {
         position: "top-right",
         theme: "colored",
       });
-      setState({ open: true, ...NewState });
-      fetchProducts();
-      fetchCategories();
 
       setTimeout(() => {
+        fetchProducts();
+        fetchCategories();
         history.push("/");
       }, 4000);
+      setState({ open: true, ...NewState });
     }
   };
 

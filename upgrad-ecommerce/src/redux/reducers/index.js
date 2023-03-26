@@ -29,7 +29,6 @@ export default function AppReducer(state = intialState, action) {
         cart: action.cart,
       };
     }
-
     case "SET_PRODUCTS": {
       return {
         ...state,
@@ -54,7 +53,6 @@ export default function AppReducer(state = intialState, action) {
         addresses: [...state.addresses, action.address],
       };
     }
-
     case "REMOVE_FROM_PRODUCTS":
       const index = state.products.findIndex(
         (product) => product.id === action.id

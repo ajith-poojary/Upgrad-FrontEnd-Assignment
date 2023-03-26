@@ -6,6 +6,7 @@ async function AuthenticateUser(email, password) {
       username: email,
       password,
     });
+
     return r.data;
   } catch (e) {
     if (e.response && e.response.data) {

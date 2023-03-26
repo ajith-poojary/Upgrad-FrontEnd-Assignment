@@ -1,0 +1,13 @@
+* {
+  transition: all 0.6s;
+}
+
+#main {
+  width: 100%;
+  color: #888;
+  text-align: center;
+}
+
+h1 {
+  font-size: 50px;
+}

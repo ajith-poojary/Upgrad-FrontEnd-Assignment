@@ -28,7 +28,7 @@ function PopUp({ open, setOpen, product_id, removeProduct }) {
     if (isDeleted !== 204) {
       setAlert("Error while deleting product");
     } else {
-      setAlert("Product deleted successfully");
+      setAlert(`Product  deleted successfully`);
     }
     setOpen(false);
   };
