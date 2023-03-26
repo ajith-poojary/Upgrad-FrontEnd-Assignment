@@ -150,9 +150,9 @@ function App({ setUser, setCategories, setProducts, setAddresses }) {
           />
         </Switch>
       </div>
-      <Route path="*">
+      {/* <Route exact path="*">
         <PageNotFound />
-      </Route>
+      </Route> */}
     </Router>
   );
 }
