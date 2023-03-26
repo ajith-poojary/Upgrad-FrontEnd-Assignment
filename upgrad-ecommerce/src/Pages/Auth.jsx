@@ -8,6 +8,8 @@ import CreateUser from "../utils/signup";
 import { useHistory } from "react-router-dom";
 import AuthenticateUser from "../utils/login";
 import Cookies from "js-cookies";
+import { Grid } from "@material-ui/core";
+import { NavLink } from "react-router-dom";
 
 function Auth({ type }) {
   const [validEmail, setValidEmail] = useState(true);
@@ -74,7 +76,6 @@ function Auth({ type }) {
       role: role,
     });
 
-    console.log(create_feedback);
     setDone(true);
     setMessage(create_feedback?.message);
 
@@ -94,7 +95,7 @@ function Auth({ type }) {
               <LockIcon />
             </div>
             <h3 className="text-2xl">
-              {type === "login" ? "Log In" : "Sign Up"}
+              {type === "login" ? "Sign in" : "Sign up"}
             </h3>
           </div>
 
@@ -131,8 +132,19 @@ function Auth({ type }) {
                     handleLogin();
                   }}
                 >
-                  Log In
+                  SIGN IN
                 </Button>
+                <Grid container>
+                  <Grid item>
+                    <NavLink
+                      to="/auth/signup"
+                      variant="body2"
+                      style={{ color: "blue" }}
+                    >
+                      Don't have an account? Sign Up
+                    </NavLink>
+                  </Grid>
+                </Grid>
               </div>
             </form>
           ) : (
@@ -221,6 +233,17 @@ function Auth({ type }) {
                 >
                   Admin Sign Up
                 </Button>
+                <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <NavLink
+                      to="/auth/login"
+                      variant="body2"
+                      style={{ color: "blue" }}
+                    >
+                      Already have an account? Sign in
+                    </NavLink>
+                  </Grid>
+                </Grid>
               </div>
             </form>
           )}
